@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Attack</title>
+    <!--   헤더 스타일(공통)  -->
+    <link href="headerCSS.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #ff00a6;
+        }
+        /*MAIN
+        ==========================================================*/
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .time {
+            font-size: 2.5rem;
+            color: #000;
+            opacity: .5;
+        }
+        h2 {
+            margin-top: 3.2rem;
+            font-size: 8rem;
+            font-weight: bold;
+            color: mediumblue;
+        }
+    </style>
+</head>
+<body>
+<!-- HEADER
+----------------------------------->
+<header>
+    <h1 class="header_title">
+        <a href="index.html">
+            Brain Attack <span>🧠️💡</span>
+        </a>
+    </h1>
+    <div class="btn">
+        <button class="rule">게임 방법</button>
+        <button class="out">나가기</button>
+    </div>
+</header>
+<!-- MAIN
+----------------------------------->
+<main>
+    <strong class="time">TIME : 3</strong>
+    <h2>꼭짓점 3개 도형</h2>
+</main>
+
+<script>
+    // 헤더 버튼
+    let rule = document.querySelector('.rule');
+    let out = document.querySelector('.out');
+
+    rule.addEventListener("click", function() {
+        changePage("figure_index.html");
+    })
+    out.addEventListener("click", function() {
+        changePage("index.html");
+    })
+    // 페이지전환 페이드아웃 효과
+    function changePage(page) {
+        document.body.classList.add("fadeOut"); // 페이지 fadeOut 애니메이션 클래스 추가
+        setTimeout(function() {
+            window.location.href = page; // 페이지 변경
+        }, 500); // 0.5초 후에 페이지 변경
+    }
+
+    // 타이머 설정
+    // setInterval 사용 코드
+    let time = document.querySelector('.time');
+
+    function countDown() {
+        let seconds = 2;
+        countNum = setInterval(() => {
+            if (seconds > 0) {
+                time.innerText = "TIME : " + seconds;
+                seconds--;
+            } else {
+                clearInterval(countNum);
+                window.location.href = "figure_game4_answer.html";
+            }
+        }, 1000)
+    }
+    countDown(); // 함수 실행
+</script>
+</body>
+</html>

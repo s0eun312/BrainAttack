@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Attack</title>
+    <!--   particle  -->
+    <link href="particle.css" rel="stylesheet">
+    <style>
+        /* 픽셀 폰트 */
+        @font-face {
+            font-family: 'DungGeunMo';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        * {
+            /*기본 마진, 패딩 제거*/
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-image: url(img/main_bg.png);
+            background-repeat: no-repeat; /* 반복 X */
+            background-position: center top; /* 중앙 기준 */
+            background-size: cover; /* 이미지가 전체 영역을 채우도록 */
+            min-height: 100vh; /* 최소 높이 설정 */
+            font-family: 'DungGeunMo', sans-serif;
+        }
+        #wrap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /*TITLE
+        ==========================================================*/
+        p {
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 30px;
+        }
+        .line {
+            border-bottom: 1px solid darkgray;
+            width: 7rem;
+            margin: 20px auto;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            text-align: center;
+            color: lightcoral;
+            font-weight: bold;
+            font-size: 5.7rem;
+        }
+        h1 span {
+            color: powderblue;
+        }
+        .txt {
+            margin: 20px auto 50px auto;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /*BUTTON
+        ==========================================================*/
+        .btn {
+            display: flex; /* 버튼을 가로로 나열하기 위해 flex 사용 */
+            flex-direction: column; /* 세로로 정렬 */
+            align-items: center; /* 가운데 정렬 */
+            margin-top: 1.3rem;
+            text-align: center;
+        }
+        .btn button {
+            margin-top: 15px;
+            width: 20rem;
+            height: 3.5rem;
+            font-family: 'DungGeunMo', sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            background: #fff;
+            border: none;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            /*border: 1px solid darkgrey;*/
+        }
+        .btn button:hover {
+            background: rgba(159, 215, 255, 0.67);
+        }
+
+        /* -------------- 페이드아웃 페이지 전환 -------------- */
+        .fadeOut {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+
+        /*KEYFRAMES
+        ==========================================================*/
+        /* BOX TEXT COLOR */
+        :root {
+            --light-coral: lightcoral;
+            --purple: #ec62ff;
+            --yellow: yellow;
+            --blue: #71adff;
+            --green: #17ff2f;
+        }
+        h1 {
+            /* ↓ 생략형이면 브라우저에 따라 제대로 동작하지 않을 수 있음 */
+            color: var(--light-coral);
+            animation: color 5s infinite;
+        }
+        @keyframes color {
+            0% { color: var(--light-coral); }
+            25% { color: var(--purple); }
+            50% { color: var(--yellow); }
+            75% { color: var(--blue); }
+            100% { color: var(--green); }
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <p>🎉🎊🎉🎊🎉</p>
+    <div class="line"></div>
+    <h1>Game Clear</h1>
+    <P class="txt">모든 게임을 클리어하셨습니다! 축하드립니다!!</P>
+    <div class="btn">
+        <button class="home">HOME</button>
+    </div>
+
+    <div id="particle-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+</div>
+
+<script>
+    let home = document.querySelector('.home');
+
+    home.addEventListener("click", function() {
+        changePage("index.html");
+    })
+
+    // 페이지전환 페이드아웃 효과
+    function changePage(page) {
+        document.body.classList.add("fadeOut"); // 페이지 fadeOut 애니메이션 클래스 추가
+        setTimeout(function() {
+            window.location.href = page; // 페이지 변경
+        }, 500); // 0.5초 후에 페이지 변경
+    }
+</script>
+</body>
+</html>

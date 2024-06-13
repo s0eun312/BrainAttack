@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Attack</title>
+    <!--   헤더 스타일(공통)  -->
+    <link href="headerCSS.css" rel="stylesheet">
+    <!--  힌트  -->
+    <link href="hint.css" rel="stylesheet">
+
+    <style>
+        body {
+            /*background: #000;*/
+            background-image: url(img/main_bg.png);
+            background-repeat: no-repeat; /* 반복 X */
+            background-position: center top; /* 중앙 기준 */
+            background-size: cover; /* 이미지가 전체 영역을 채우도록 */
+        }
+        /*MAIN
+        ==========================================================*/
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #contents {
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.28);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 200px;
+        }
+        /* QUESTION */
+        .question {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+        .question span {
+            color: chartreuse;
+        }
+        /* ANSWER */
+        .answer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .answer button {
+            font-family: 'DungGeunMo', sans-serif;
+        }
+        .answer .row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .answer .row button {
+            width: 130px;
+            height: 130px;
+            border: none;
+            border-radius: 50%;
+            margin: 0 1rem;
+            background: #ff6e41;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+        .answer button:nth-child(1),
+        .answer button:nth-child(6) {
+            margin-left: 0;
+        }
+        .answer button:hover {
+            background: rgba(65, 255, 160, 0.73);
+        }
+    </style>
+</head>
+<body>
+<!-- HEADER
+----------------------------------->
+<header>
+    <h1 class="header_title">
+        <a href="index.html">
+            Brain Attack <span>🧠️💡</span>
+        </a>
+    </h1>
+    <div class="btn">
+        <button class="rule">게임 방법</button>
+        <button class="out">나가기</button>
+    </div>
+</header>
+<!-- MAIN
+----------------------------------->
+<main>
+    <div id="contents">
+        <h2 class="question">Q. 3번째 카드 속 <span>과일의 종류</span>는 무엇이었을까요?</h2>
+        <div id="answerBtn" class="answer">
+            <div class="row">
+                <button class="wrong">딸기</button>
+                <button class="wrong">키위</button>
+                <button class="wrong">레몬</button>
+                <button class="wrong">바나나</button>
+                <button class="correct">체리</button>
+            </div>
+            <div class="row">
+                <button class="wrong">아보카도</button>
+                <button class="wrong">수박</button>
+                <button class="wrong">오렌지</button>
+                <button class="wrong">사과</button>
+                <button class="wrong">포도</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="hint_content">
+        <article class="hint">
+            적갈색의 이 과일은 벚나무의 열매에요!
+        </article>
+        <button class="hint_btn">HINT</button>
+    </div>
+</main>
+
+<script src="hint.js"></script>
+<script>
+    // 헤더 버튼
+    let rule = document.querySelector('.rule');
+    let out = document.querySelector('.out');
+
+    rule.addEventListener("click", function() {
+        changePage("picture_index.html");
+    })
+    out.addEventListener("click", function() {
+        changePage("index.html");
+    })
+    // 페이지전환 페이드아웃 효과
+    function changePage(page) {
+        document.body.classList.add("fadeOut"); // 페이지 fadeOut 애니메이션 클래스 추가
+        setTimeout(function() {
+            window.location.href = page; // 페이지 변경
+        }, 500); // 0.5초 후에 페이지 변경
+    }
+
+    // 정답 고르기 ----------------------- !!
+    // 정답 고르기 이벤트 위한 임의 함수 ClickButton 생성
+    function ClickButton(buttons) {
+        buttons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                // 만약 클릭한 타겟이 correct 클래스를 포함하고 있으면
+                if (event.target.classList.contains('correct')) {
+                    // 다음 게임 페이지 이동
+                    window.location.href = "picture_game2.html";
+                } else {
+                    // 아니라면 게임오버 페이지 이동
+                    changePage("gameover.html");
+                }
+            });
+        });
+    }
+
+    // 랜덤으로 버튼 재배치 ----------------------- !!
+    function shuffleButtons() {
+        // 답변 버튼들이 들어있는 컨테이너를 가져옴
+        const rows = document.querySelectorAll('.row');
+        // 컨테이너 내 모든 버튼 요소를 배열로 변환
+        // const buttons = Array.from(rows.getElementsByTagName('button'));
+        const buttons = [];
+
+        // 각 행(row)에서 버튼들을 가져와서 배열로 변환 후 buttons 배열에 추가
+        rows.forEach(row => {
+            // ... (spread 연산자) : 배열을 개별 요소로 펼쳐서 push 메서드에 전달
+            // Array.from : 유사 배열 객체나 이터러블 객체를 얕게 복사해 새로운 배열 객체 생성
+            buttons.push(...Array.from(row.getElementsByTagName('button')));
+        });
+
+        // Fisher-Yates 알고리즘을 사용하여 배열을 섞음
+        // Fisher-Yates: 주어진 배열을 무작위로 섞는 알고리즘
+        // [Fisher-Yates 작동 원리]
+        // 1. 배열의 마지막 요소부터 시작하여 처음 요소까지 거꾸로 반복
+        // 2. 각 반복에서 현재 요소를 배열의 앞쪽에서 무작위로 선택된 요소와 교환
+        // 3. 이러한 과정을 처음 요소에 도달할 때까지 반복
+        for (let i = buttons.length - 1; i > 0; i--) {
+            // 0부터 i까지의 임의의 인덱스를 선택
+            const j = Math.floor(Math.random() * (i + 1));
+            // 버튼 요소의 위치를 교환
+            [buttons[i], buttons[j]] = [buttons[j], buttons[i]];
+        }
+
+        // 각 행(row)의 기존 내용(버튼 순서)을 지움
+        rows.forEach(row => row.innerHTML = '');
+        // 섞인 버튼을 다시 각 행(row)에 추가
+        buttons.slice(0, 5).forEach(button => rows[0].appendChild(button));
+        buttons.slice(5).forEach(button => rows[1].appendChild(button));
+        // 버튼 클릭 ClickButton 함수 다시 설정
+        ClickButton(buttons);
+    }
+
+    // 페이지 로드 시 버튼 셔플 실행
+    window.onload = shuffleButtons;
+</script>
+</body>
+</html>

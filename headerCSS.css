@@ -1,0 +1,103 @@
+@charset "UTF-8";
+/* 픽셀 폰트 */
+@font-face {
+    font-family: 'DungGeunMo';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*GENERAL
+==========================================================*/
+* {
+    /*기본 마진, 패딩 제거*/
+    margin: 0;
+    padding: 0;
+}
+body {
+    min-width: 100vh; /* 최소 너비 설정 */
+    min-height: 100vh; /* 최소 높이 설정 */
+    font-family: 'DungGeunMo', sans-serif;;
+}
+/*HEADER
+==========================================================*/
+header {
+    /* 기본적으로 position이 static인 요소에는 z-index가 적용되지 않으므로,
+    position 속성을 relative, absolute, fixed 또는 sticky로 설정 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* 헤더CSS를 메인 요소들보다 레이어 상단에 두기 위해 z-index 활용 */
+    z-index: 1000;
+    display: flex;
+    width: 100%;
+    /*width: auto;*/
+    height: 68px;
+    padding: 15px;
+    background: #ca6cff;
+}
+header a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: #ea0000;
+}
+/* TITLE */
+header .header_title {
+    display: flex;
+    align-items: center;
+    /*position: absolute;*/
+    padding-left: 80px;
+    color: #ea0000;
+    font-weight: bold;
+    /*margin-top: 5px;*/
+    font-size: 3rem; /* 폰트 크기 조정 */
+    /*text-align: center; !* 헤더 가운데 *!*/
+}
+header .header_title span {
+    font-size: 2.8rem;
+}
+/* BUTTON */
+.btn {
+    display: flex;
+    justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    margin-left: auto;
+    margin-right: 80px;
+}
+.btn button {
+    width: 13rem;
+    height: 3rem;
+    margin-right: 20px;
+    font-family: 'DungGeunMo', sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+    background: #fff;
+    border: none;
+    -webkit-border-radius: 10px;
+            border-radius: 10px;
+}
+.btn button:hover {
+    background: rgba(70, 0, 255, 0.67);
+    color: #fff;
+}
+
+/*FADEOUT 페이지 전환
+==========================================================*/
+.fadeOut {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+/*KEYFRAME
+==========================================================*/
+/* SPARKLE */
+header .header_title span {
+    animation: sparkle 1s infinite;
+}
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .3;
+    }
+}

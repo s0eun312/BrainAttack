@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Attack</title>
+    <!--   헤더 스타일(공통)  -->
+    <link href="headerCSS.css" rel="stylesheet">
+
+    <style>
+        /* 픽셀 폰트 */
+        @font-face {
+            font-family: 'DungGeunMo';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            /*background: #000;*/
+            background-image: url(img/main_bg.png);
+            background-repeat: no-repeat; /* 반복 X */
+            background-position: center top; /* 중앙 기준 */
+            background-size: cover; /* 이미지가 전체 영역을 채우도록 */
+            min-height: 100vh; /* 최소 높이 설정 */
+            font-family: 'DungGeunMo', sans-serif;
+        }
+        /* 버튼 비활성화 */
+        .rule, .rule:hover {
+            background: rgba(101, 101, 101, 0.67) !important;
+            cursor: not-allowed;
+            color: #fff !important;
+        }
+        /*MAIN
+        ==========================================================*/
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #contents {
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.28);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 100px;
+        }
+        .clear {
+            clear: both;
+        }
+        /* BUTTON */
+        #button {
+            margin-right: 10rem;
+        }
+        #button h2 {
+            color: gray;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        #button h2 span {
+            font-size: 1.8rem;
+        }
+        .image {
+            position: relative; /* 상위 요소를 상대 위치로 설정 */
+            /* 인라인 블록 요소로 배치하여 이미지와 텍스트가 옆으로 배치되도록 함 */
+            display: inline-block;
+            cursor: pointer;
+        }
+        .image button {
+            /* 텍스트를 절대 위치로 설정하여 이미지 위에 겹치게 함 */
+            position: absolute;
+            top: 50%; /* 텍스트의 상단을 부모 요소의 중앙에 위치 */
+            left: 50%; /* 텍스트의 좌측을 부모 요소의 중앙에 위치 */
+            transform: translate(-50%, -50%); /* 텍스트를 수평 및 수직으로 정확히 중앙에 위치 */
+
+            width: 310px; /* 이미지 크기: 300X300 */
+            height: 310px; /* 이미지 보다 약간 큰 크기 -> 이미지 완전히 덮기 */
+            border: none;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.48);
+            color: #fff;
+            font-family: 'DungGeunMo', sans-serif;
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            opacity: 0;
+            z-index: 1;
+            cursor: pointer;
+        }
+        .image button:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+        /* RULE */
+        #rule {
+            color: #fff;
+            /*width: 600px;*/
+            height: auto;
+            float: left;
+            /*text-align: center;*/
+        }
+        #rule h2 {
+            color: chartreuse;
+            font-size: 4rem;
+            font-weight: bold;
+        }
+        #rule .level {
+            margin-top: .5rem;
+            font-size: 1.5rem;
+            color: rgba(194, 194, 194, 0.69);
+        }
+        #rule .text {
+            margin-top: 2.3rem;
+            font-size: 2rem;
+            line-height: 2.8rem;
+        }
+
+        /*KEYFRAMES
+        ==========================================================*/
+        /* BOUNCE */
+        #button h2 {
+            animation: bounce 0.3s infinite alternate;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+<!-- HEADER
+----------------------------------->
+<header>
+    <h1 class="header_title">
+        <a href="index.html">
+            Brain Attack <span>🧠️💡</span>
+        </a>
+    </h1>
+    <div class="btn">
+        <button class="rule">게임 방법</button>
+        <button class="out">나가기</button>
+    </div>
+</header>
+<!-- MAIN
+----------------------------------->
+<main>
+    <div id="contents">
+        <div id="button">
+            <h2>
+                Hover Here !<br>
+                <span>▼</span>
+            </h2>
+            <div class="image">
+                <img src="img/button.png">
+                <button>Game<br>Start</button>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="rule">
+            <h2>게임 방법</h2>
+            <p class="level">난이도 ⭐ ⭐ ⭐ ⭐ ⭐</p>
+            <p class="text">
+                주어진 시간 안에 <br>
+                랜덤 배치된 과일 카드들을 외워 <br>
+                알맞은 정답을 선택하세요 👍 <br>
+                오답을 고를 시 <br>
+                게임은 오버됩니다 👾👾👾
+            </p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</main>
+
+<script>
+    // 헤더 버튼
+    let out = document.querySelector('.out');
+
+    out.addEventListener("click", function() {
+        changePage("index.html");
+    })
+
+    // 페이지전환 페이드아웃 효과
+    function changePage(page) {
+        document.body.classList.add("fadeOut"); // 페이지 fadeOut 애니메이션 클래스 추가
+        setTimeout(function() {
+            window.location.href = page; // 페이지 변경
+        }, 500); // 0.5초 후에 페이지 변경
+    }
+
+    // 게임 시작 버튼
+    let startBtn = document.querySelector('.image button');
+
+    startBtn.addEventListener('click', () => {
+        changePage("picture_game1.html");
+    });
+
+    // 페이지 랜덤 이동
+    // startBtn.addEventListener("click", () => {
+    //     // 랜덤 페이지 전환시 순서 꼬임 -> 게임클리어 화면 이동 불가...
+    //     // const urls = [
+    //     //     "picture_game1.html",
+    //     //     "picture_game2.html",
+    //     //     "picture_game3.html",
+    //     //     "picture_game4.html",
+    //     //     "picture_game5.html"
+    //     // ];
+    //     //
+    //     // // 랜덤 인덱스 생성
+    //     // const randomIndex = Math.floor(Math.random() * urls.length);
+    //     //
+    //     // // 랜덤 URL로 이동
+    //     // changePage(urls[randomIndex]);
+    //     // window.location.href = urls[randomIndex];
+    //     changePage("picture_game1.html");
+    // });
+</script>
+</body>
+</html>

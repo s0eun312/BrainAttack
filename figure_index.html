@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Attack</title>
+    <!--   헤더 스타일(공통)  -->
+    <link href="headerCSS.css" rel="stylesheet">
+
+    <style>
+        /* 픽셀 폰트 */
+        @font-face {
+            font-family: 'DungGeunMo';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            /*background: #000;*/
+            background-image: url(img/main_bg.png);
+            background-repeat: no-repeat; /* 반복 X */
+            background-position: center top; /* 중앙 기준 */
+            background-size: cover; /* 이미지가 전체 영역을 채우도록 */
+            min-height: 100vh; /* 최소 높이 설정 */
+            font-family: 'DungGeunMo', sans-serif;
+        }
+        /* 버튼 비활성화 */
+        .rule, .rule:hover {
+            background: rgba(101, 101, 101, 0.67) !important;
+            cursor: not-allowed;
+            color: #fff !important;
+        }
+        /*MAIN
+        ==========================================================*/
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+
+            /* 웹사이트 가운데 위치 */
+            /*position: absolute;*/
+            /*top: 50%;*/
+            /*left: 50%;*/
+            /*transform: translate(-50%, -50%);*/
+        }
+        #contents {
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.28);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 100px;
+            /*width: auto;*/
+            /*height: 100%;*/
+        }
+        .clear {
+            clear: both;
+        }
+        /* RULE */
+        #rule {
+            color: #fff;
+            /*width: 600px;*/
+            height: auto;
+            float: left;
+            /*text-align: center;*/
+        }
+        #rule h2 {
+            color: yellow;
+            font-size: 4rem;
+            font-weight: bold;
+        }
+        #rule .level {
+            margin-top: .5rem;
+            font-size: 1.5rem;
+            color: rgba(194, 194, 194, 0.69);
+        }
+        #rule .text {
+            margin-top: 2.3rem;
+            font-size: 2rem;
+            line-height: 2.8rem;
+        }
+        /* BUTTON */
+        #button {
+            text-align: center;
+            /*h2가 .box 위 중앙 위치하기 위한 코드*/
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-left: 8rem;
+        }
+        #button h2 {
+            color: gray;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        #button h2 span {
+            font-size: 1.8rem;
+        }
+        #button .box {
+            width: 250px;
+            height: 250px;
+            background: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all .3s linear;
+            cursor: pointer;
+        }
+        #button .box p {
+            margin: 0;
+            text-align: center;
+            color: #eee;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .box.add {
+            border-radius: 50%;
+            background: #ca6cff !important; /* !important: CSS 우선순위 높이기 */
+        }
+
+        /*KEYFRAMES
+        ==========================================================*/
+        /* BOUNCE */
+        #button h2 {
+            animation: bounce 0.3s infinite alternate;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-15px); }
+        }
+        /* BOX TEXT COLOR */
+        :root {
+            --yellow: yellow;
+            --blue: #71adff;
+            --purple: #ec62ff;
+            --green: #17ff2f;
+            --white: #fff;
+        }
+        .box p {
+            /* ↓ 생략형이면 브라우저에 따라 제대로 동작하지 않을 수 있음 */
+            color: var(--yellow);
+            animation: color 5s infinite;
+        }
+        @keyframes color {
+            0% { color: var(--yellow); }
+            25% { color: var(--blue); }
+            50% { color: var(--purple); }
+            75% { color: var(--green); }
+            100% { color: var(--white); }
+        }
+    </style>
+</head>
+<body>
+<!-- HEADER
+----------------------------------->
+<header>
+    <h1 class="header_title">
+        <a href="index.html">
+            Brain Attack <span>🧠️💡</span>
+        </a>
+    </h1>
+    <div class="btn">
+        <button class="rule">게임 방법</button>
+        <button class="out">나가기</button>
+    </div>
+</header>
+<!-- MAIN
+----------------------------------->
+<main>
+    <div id="contents">
+        <div id="rule">
+            <h2>게임 방법</h2>
+            <p class="level">난이도 ⭐ ⭐</p>
+            <p class="text">
+                주어진 시간 안에 <br>
+                문장 속 도형과 배경색을 조합해 <br>
+                알맞은 정답을 찾아보세요 👍 <br>
+                오답을 고를 시 <br>
+                게임은 오버됩니다 👾👾👾
+            </p>
+        </div>
+        <div class="clear"></div>
+        <div id="button">
+            <h2><span>▼</span>&nbsp;&nbsp;Click Here !</h2>
+            <div class="box">
+                <p>
+                    GAME<br>
+                    START
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // 페이지 전환
+    let out = document.querySelector('.out');
+    let box = document.querySelector('.box');
+
+    out.addEventListener("click", function() {
+        changePage("index.html");
+    })
+    box.addEventListener("click", function() {
+        box.classList.add('add');
+        changePage("figure_game1.html");
+    })
+
+    // 페이지전환 페이드아웃 효과
+    function changePage(page) {
+        document.body.classList.add("fadeOut"); // 페이지 fadeOut 애니메이션 클래스 추가
+        setTimeout(function() {
+            window.location.href = page; // 페이지 변경
+        }, 500); // 0.5초 후에 페이지 변경
+    }
+</script>
+</body>
+</html>

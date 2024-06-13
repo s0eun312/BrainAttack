@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Attack</title>
+    <!--   헤더 스타일(공통)  -->
+    <link href="headerCSS.css" rel="stylesheet">
+
+
+    <style>
+        /* 픽셀 폰트 */
+        @font-face {
+            font-family: 'DungGeunMo';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            background: yellow;
+        }
+        /*MAIN
+        ==========================================================*/
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+
+            /* 웹사이트 가운데 위치 */
+            /*position: absolute;*/
+            /*top: 50%;*/
+            /*left: 50%;*/
+            /*transform: translate(-50%, -50%);*/
+        }
+        .time {
+            font-size: 2.5rem;
+            color: #000;
+            opacity: .5;
+        }
+        h2 {
+            margin-top: 3.2rem;
+            font-size: 8rem;
+            font-weight: bold;
+            font-family: 'DungGeunMo', sans-serif;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<!-- HEADER
+----------------------------------->
+<header>
+    <h1 class="header_title">
+        <a href="index.html">
+            Brain Attack <span>🧠️💡</span>
+        </a>
+    </h1>
+    <div class="btn">
+        <button class="rule">게임 방법</button>
+        <button class="out">나가기</button>
+    </div>
+</header>
+<!-- MAIN
+----------------------------------->
+<main>
+    <strong class="time">TIME : 5</strong>
+    <h2>사각형</h2>
+</main>
+
+<script>
+    // 헤더 버튼
+    let rule = document.querySelector('.rule');
+    let out = document.querySelector('.out');
+
+    rule.addEventListener("click", function() {
+        changePage("figure_index.html");
+    })
+    out.addEventListener("click", function() {
+        changePage("index.html");
+    })
+
+    // 페이지전환 페이드아웃 효과
+    function changePage(page) {
+        document.body.classList.add("fadeOut"); // 페이지 fadeOut 애니메이션 클래스 추가
+        setTimeout(function() {
+            window.location.href = page; // 페이지 변경
+        }, 500); // 0.5초 후에 페이지 변경
+    }
+
+    // 타이머 설정
+    // setInterval 사용 코드
+    let time = document.querySelector('.time');
+
+    function countDown() {
+        let seconds = 4;
+        countNum = setInterval(() => {
+            if (seconds > 0) {
+                time.innerText = "TIME : " + seconds;
+                seconds--;
+            } else {
+                clearInterval(countNum);
+                window.location.href = "figure_game1_answer.html";
+            }
+        }, 1000)
+    }
+    countDown(); // 함수 실행
+
+    // setTimeout 사용 코드
+    // n초 후에 다른 페이지로 이동
+    // setTimeout(() => {
+    //     window.location.href = 'figure_game1_answer.html';
+    // }, 4000); // 4초 후 이동
+
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Attack</title>
+    <!--   헤더 스타일(공통)  -->
+    <link href="headerCSS.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #000;
+        }
+        /*MAIN
+        ==========================================================*/
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 헤더 영역이 메인요소에 침범되지 않게 하기위한 CSS */
+            height: calc(100vh - 100px); /* 헤더 제외한 메인 영역 높이 설정 */
+            margin-top: 10rem; /* 헤더 높이 포함하여 마진 설정 */
+        }
+        #contents {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        /* TEXT */
+        .text {
+            text-align: center;
+            margin: 20rem 0 1rem 0;
+        }
+        .text h2 {
+            font-size: 2.7rem;
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+        .text span {
+            color: chartreuse;
+        }
+        .text strong {
+            font-size: 1.7rem;
+            color: #939393;
+            opacity: .6;
+        }
+        /* CARD */
+        .card {
+            margin-bottom: 5rem;
+        }
+        .card img {
+            margin-top: 3rem;
+            margin-left: 3rem;
+        }
+        .card img:nth-child(1),
+        .card img:nth-child(7) {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<!-- HEADER
+----------------------------------->
+<header>
+    <h1 class="header_title">
+        <a href="index.html">
+            Brain Attack <span>🧠️💡</span>
+        </a>
+    </h1>
+    <div class="btn">
+        <button class="rule">게임 방법</button>
+        <button class="out">나가기</button>
+    </div>
+</header>
+<!-- MAIN
+----------------------------------->
+<main>
+    <div id="contents">
+        <div class="text">
+            <h2>카드 <span>그림</span>과 <span>위치</span>를 기억하세요 💭</h2>
+            <strong class="time">TIME : 10</strong>
+        </div>
+        <div class="card">
+            <img src="img/Watermelon.png">
+            <img src="img/Orange.png">
+            <img src="img/Avocado.png">
+            <img src="img/Banana.png">
+            <img src="img/Kiwi.png">
+            <br>
+            <img src="img/Grape.png">
+            <img src="img/Apple.png">
+            <img src="img/Strawberry.png">
+            <img src="img/Lemon.png">
+            <img src="img/Cherry.png">
+        </div>
+    </div>
+</main>
+
+<script>
+    // 헤더 버튼
+    let rule = document.querySelector('.rule');
+    let out = document.querySelector('.out');
+
+    rule.addEventListener("click", function() {
+        changePage("picture_index.html");
+    })
+    out.addEventListener("click", function() {
+        changePage("index.html");
+    })
+    // 페이지전환 페이드아웃 효과
+    function changePage(page) {
+        document.body.classList.add("fadeOut"); // 페이지 fadeOut 애니메이션 클래스 추가
+        setTimeout(function() {
+            window.location.href = page; // 페이지 변경
+        }, 500); // 0.5초 후에 페이지 변경
+    }
+
+    // 타이머 설정
+    // setInterval 사용 코드
+    let time = document.querySelector('.time');
+
+    function countDown() {
+        let seconds = 9;
+        countNum = setInterval(() => {
+            if (seconds > 0) {
+                time.innerText = "TIME : " + seconds;
+                seconds--;
+            } else {
+                clearInterval(countNum);
+                window.location.href = "picture_game5_answer.html";
+            }
+        }, 1000)
+    }
+    countDown(); // 함수 실행
+</script>
+</body>
+</html>

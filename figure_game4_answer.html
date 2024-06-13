@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brain Attack</title>
+    <!--   헤더 스타일(공통)  -->
+    <link href="headerCSS.css" rel="stylesheet">
+    <!--  힌트  -->
+    <link href="hint.css" rel="stylesheet">
+
+    <style>
+        body {
+            /*background: #000;*/
+            background-image: url(img/answer_bg.png);
+            background-repeat: no-repeat; /* 반복 X */
+            background-position: center top; /* 중앙 기준 */
+            background-size: cover; /* 이미지가 전체 영역을 채우도록 */
+        }
+        /*MAIN
+        ==========================================================*/
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #contents {
+            margin-top: 150px;
+        }
+        /* QUESTION */
+        #question {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: normal;
+            color: #eee;
+        }
+        /* ANSWER */
+        #answer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 8rem;
+            cursor: pointer;
+        }
+        #triangle-1 {
+            position: relative;
+            width:0;
+            height:0;
+            margin-left:-40px;
+            border-left: 85px solid transparent;
+            border-right: 85px solid transparent;
+            border-bottom: 130px solid #000096;
+        }
+        #triangle-1:after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: -75px;
+            width: 0;
+            height: 0;
+            border-left: 75px solid transparent;
+            border-right: 75px solid transparent;
+            border-bottom: 115px solid mediumblue;
+            filter: blur(4px);
+        }
+        #box-1 {
+            width: 135px;
+            height:135px;
+            background: #bf00ff;
+            margin-left: 130px;
+        }
+        #box-2 {
+            width: 135px;
+            height:135px;
+            background: deepskyblue;
+            margin-left: 130px;
+        }
+        #triangle-2 {
+            position: relative;
+            width:0;
+            height:0;
+            /*margin-left:-40px;*/
+            border-left: 85px solid transparent;
+            border-right: 85px solid transparent;
+            border-bottom: 130px solid #960264;
+            margin-left: 130px;
+        }
+        #triangle-2:after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: -75px;
+            width: 0;
+            height: 0;
+            border-left: 75px solid transparent;
+            border-right: 75px solid transparent;
+            border-bottom: 115px solid #ff00a6;
+            filter: blur(4px);
+        }
+        #triangle-1:hover,
+        #triangle-2:hover {
+            opacity: .5;
+        }
+        #triangle-1:active,
+        #triangle-2:active {
+            opacity: .5;
+            transform: translateY(4px);
+        }
+        #box-1,
+        #box-2 {
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 1);
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        #box-1:hover,
+        #box-2:hover {
+            opacity: .5;
+        }
+        #box-1:active,
+        #box-2:active {
+            opacity: .5;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 1);
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+<body>
+<!-- HEADER
+----------------------------------->
+<header>
+    <h1 class="header_title">
+        <a href="index.html">
+            Brain Attack <span>🧠️💡</span>
+        </a>
+    </h1>
+    <div class="btn">
+        <button class="rule">게임 방법</button>
+        <button class="out">나가기</button>
+    </div>
+</header>
+<!-- MAIN
+----------------------------------->
+<main>
+    <div id="contents">
+        <h2 id="question">
+            정답이라 생각되는 도형을 선택해 주세요
+        </h2>
+        <div id="answer">
+            <div id="triangle-1" class="wrong"></div>
+            <div id="box-1" class="wrong"></div>
+            <div id="box-2" class="wrong"></div>
+            <div id="triangle-2"></div>
+        </div>
+
+        <div class="hint_content">
+            <article class="hint">
+                기타 피크는 어떤 모양일까요?
+            </article>
+            <button class="hint_btn">HINT</button>
+        </div>
+    </div>
+</main>
+
+<script src="hint.js"></script>
+<script>
+    // 헤더 버튼
+    let rule = document.querySelector('.rule');
+    let out = document.querySelector('.out');
+
+    rule.addEventListener("click", function() {
+        event.stopPropagation(); // 이벤트 전파 중단
+        changePage("figure_index.html");
+    })
+    out.addEventListener("click", function() {
+        event.stopPropagation(); // 이벤트 전파 중단
+        changePage("index.html");
+    })
+    // 페이지전환 페이드아웃 효과
+    function changePage(page) {
+        document.body.classList.add("fadeOut"); // 페이지 fadeOut 애니메이션 클래스 추가
+        setTimeout(function() {
+            window.location.href = page; // 페이지 변경
+        }, 500); // 0.5초 후에 페이지 변경
+    }
+
+    // 정답 고르기 ----------------------- !!
+    let correct = document.querySelector('#triangle-2');
+    let wrong = document.querySelectorAll('.wrong');
+
+    document.addEventListener('click', (e) => {
+        if (e.target === correct) {
+            window.location.href = "gameclear.html";
+
+        }else {
+            wrong.forEach((element) => {
+                if (e.target === element) {
+                    document.body.classList.add("fadeOut"); // 페이지 fadeOut 애니메이션 클래스 추가
+                    setTimeout(function() {
+                        window.location.href = "gameover.html"; // 페이지 변경
+                    }, 500); // 0.5초 후에 페이지 변경
+                }
+            });
+        }
+    })
+</script>
+</body>
+</html>
